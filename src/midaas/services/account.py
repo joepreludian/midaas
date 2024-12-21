@@ -5,13 +5,14 @@ from asaaspy.schemas.v3.subaccount import SubAccountSchema
 from asaaspy.service import AsaasService
 from config import base_config
 import logging
+from typing import Optional
 
 
 logger = logging.getLogger(__name__)
 
 
 class AccountService:
-    def __init__(self):
+    def __init__(self, api_key: Optional[str] = None):
         self._asaas_service = AsaasService(
             api_key=base_config.asaas_key, sandbox=base_config.asaas_sandbox
         )

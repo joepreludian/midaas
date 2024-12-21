@@ -10,5 +10,5 @@ logger = logging.getLogger(__name__)
 router = APIRouter(tags=["Webhook"], dependencies=[Depends(ensure_admin_account)])
 
 
-@router.get("/webhook_handler/{account_id}")
+@router.get("/webhook_handler/{account_id}", deprecated=True)
 async def handle_webhook(account_id: str): ...

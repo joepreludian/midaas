@@ -18,7 +18,9 @@ class BaseConfig(BaseSettings):
 
     midaas_admin_token: str = Field()
     midaas_webhook_email: str = Field()
+    midaas_jwt_secret: str = Field()
     midaas_base_url: str = Field(default="http://localhost:9999")
+    midaas_user_token_time_minutes: int = Field(default=30)
 
 
 base_config = BaseConfig()

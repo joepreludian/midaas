@@ -3,9 +3,7 @@ from typing import List, Dict, Union
 from asaaspy.schemas.v3.my_account import MyAccountCloseViewSchema
 from fastapi import APIRouter, Depends
 from auth import ensure_admin_account
-from asaaspy.schemas.v3.subaccount import SubAccountSchema, WebhookSchema
-from midaas.config import base_config
-
+from asaaspy.schemas.v3.subaccount import SubAccountSchema
 from schemas.account import AccountSchema, AccountDetailSchema
 from services.account import inject_account_service, AccountService
 import logging
@@ -32,7 +30,7 @@ async def get_account_detail(
     return AccountDetailSchema.build(account_service.get_by_id_extended(id))
 
 
-@router.terminate("/{id}/")
+@router.delete("/{id}/")
 async def terminate_account(
     id: str, account_service: AccountService = Depends(inject_account_service)
 ) -> MyAccountCloseViewSchema:
@@ -56,6 +54,8 @@ async def new_account(
 ) -> AccountSchema:
     """
     Create a new account
+    """
+
     """
     sub_account_data.webhooks = [
         WebhookSchema(
@@ -97,4 +97,5 @@ async def new_account(
             ],
         )
     ]
+    """
     return account_service.create(sub_account_data)

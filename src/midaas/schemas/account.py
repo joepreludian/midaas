@@ -35,3 +35,4 @@ class AccountDetailSchema(BaseModel):
             "id": data["id"],
         }
         return cls(**obj)
+
