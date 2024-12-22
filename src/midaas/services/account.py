@@ -72,6 +72,7 @@ class AccountService:
         return close_account_response
 
 
+
 @lru_cache
 def inject_account_service():
     return AccountService()

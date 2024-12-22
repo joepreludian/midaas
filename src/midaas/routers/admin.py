@@ -27,4 +27,4 @@ async def issue_access_token(data: AccountCredentialRequestSchema, auth_svc: Aut
 @router.get("/setup/")
 async def setup_database():
     BankAccount.create_table(read_capacity_units=2, write_capacity_units=2, wait=True)
-    return {"msg": "Successful"}
+    return {"status": "Successful"}

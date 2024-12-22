@@ -4,6 +4,8 @@ from pynamodb.models import Model
 from pynamodb.attributes import UnicodeAttribute, BooleanAttribute, JSONAttribute
 from config import BaseConfig
 from schemas.account import AccountSchema
+from typing import Optional
+from schemas.banking import WithdrawAccount
 
 config = BaseConfig()
 
@@ -26,6 +28,13 @@ class BankAccount(Model):
     api_key = UnicodeAttribute()
     wallet_id = UnicodeAttribute()
     payload = JSONAttribute(null=True)
+    withdraw_account = JSONAttribute(null=True)
+
+    def get_withdraw_account(self) -> Optional[WithdrawAccount]:
+        if self.withdraw_account:
+            return WithdrawAccount(**self.withdraw_account)
+
+        return None
 
     def as_account_schema(self) -> AccountSchema:
         return AccountSchema(
