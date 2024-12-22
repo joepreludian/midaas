@@ -1,7 +1,7 @@
 [project]
 name = "midaas"
 version = "0.1.0"
-description = "Default template for PDM package"
+description = "A Simple multi account manager micro-service for Asaas"
 authors = [
     {name = "Jonhnatha Trigueiro", email = "jon@preludian.com.br"},
 ]

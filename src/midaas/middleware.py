@@ -4,6 +4,7 @@ from starlette.types import ASGIApp, Receive, Scope, Send
 from midaas.config import base_config
 from pynamodb.exceptions import DoesNotExist
 
+
 class ErrorGuardHandlerMiddleware:
     def __init__(self, app: ASGIApp) -> None:
         self.app = app

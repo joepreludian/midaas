@@ -88,17 +88,19 @@ class AccountService:
         try:
             asaas_root_account_status = self._asaas_service.my_account.get_status()
             if asaas_root_account_status.general != "APPROVED":
-                remarks.append(f"Asaas: Account is not fully approved")
+                remarks.append("Asaas: Account is not fully approved")
         except AsaasClientError as exc:
             asaas_root_account_status = None
             remarks.append(f"Asaas: {exc}")
 
-        health_status = HealthStatusSchema(**{
-            "status": "healthy" if not remarks else "unhealthy",
-            "sub_accounts": amount_subaccounts,
-            "asaas_root_account_status": asaas_root_account_status,
-            "remarks": remarks
-        })
+        health_status = HealthStatusSchema(
+            **{
+                "status": "healthy" if not remarks else "unhealthy",
+                "sub_accounts": amount_subaccounts,
+                "asaas_root_account_status": asaas_root_account_status,
+                "remarks": remarks,
+            }
+        )
 
         if remarks:
             raise HTTPException(status_code=218, detail=health_status.model_dump())

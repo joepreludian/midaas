@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter(tags=["Admin"], dependencies=[Depends(ensure_admin_account)])
 
+
 @router.get("/{id}/")
 async def get_account_detail(
     id: str,

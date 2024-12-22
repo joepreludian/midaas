@@ -1,9 +1,12 @@
 repos:
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.8.2
+  rev: v0.8.4
   hooks:
     - id: ruff
       types_or: [ python, pyi ]
       args: [ --fix ]
+    - id: ruff
+      args: [ "check", "--select", "I", "--fix" ]
+      files: "^backend/"
     - id: ruff-format
       types_or: [ python, pyi ]

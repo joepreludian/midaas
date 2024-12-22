@@ -10,6 +10,7 @@ from jose.exceptions import ExpiredSignatureError
 
 security = HTTPBearer()
 
+
 @dataclass()
 class ClientReturn:
     asaas: AsaasService
@@ -27,11 +28,11 @@ def ensure_admin_account(
 
 async def ensure_client_account(
     credentials: Annotated[HTTPAuthorizationCredentials, Depends(security)],
-    auth_svc: AuthService = Depends(inject_auth_service)
+    auth_svc: AuthService = Depends(inject_auth_service),
 ) -> ClientReturn:
     try:
         returned_account = auth_svc.get_account(credentials.credentials)
-    except ExpiredSignatureError as e:
+    except ExpiredSignatureError:
         raise HTTPException(status_code=401, detail="Token expired")
 
     client_asaas = AsaasService(
