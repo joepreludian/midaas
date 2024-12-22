@@ -5,3 +5,7 @@ from typing import Literal
 class WithdrawAccount(BaseModel):
     pix_key: str
     pix_type: Literal["CPF", "CNPJ", "EMAIL", "PHONE", "EVP"]
+
+
+class WithdrawPayload(BaseModel):
+    value: float

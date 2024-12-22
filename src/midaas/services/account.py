@@ -1,5 +1,9 @@
 from functools import lru_cache
 
+from asaaspy.exceptions import AsaasClientError
+from fastapi import HTTPException
+from pynamodb.exceptions import PynamoDBException
+
 from models.account import BankAccount
 from asaaspy.schemas.v3.subaccount import SubAccountSchema
 from asaaspy.service import AsaasService
@@ -7,6 +11,7 @@ from config import base_config
 import logging
 from typing import Optional
 
+from schemas.account import HealthStatusSchema
 
 logger = logging.getLogger(__name__)
 
@@ -71,6 +76,34 @@ class AccountService:
 
         return close_account_response
 
+    def get_admin_status(self):
+        remarks = []
+
+        try:
+            amount_subaccounts = BankAccount.count()
+        except PynamoDBException as exc:
+            amount_subaccounts = -1
+            remarks.append(f"DynamoDB: {exc}")
+
+        try:
+            asaas_root_account_status = self._asaas_service.my_account.get_status()
+            if asaas_root_account_status.general != "APPROVED":
+                remarks.append(f"Asaas: Account is not fully approved")
+        except AsaasClientError as exc:
+            asaas_root_account_status = None
+            remarks.append(f"Asaas: {exc}")
+
+        health_status = HealthStatusSchema(**{
+            "status": "healthy" if not remarks else "unhealthy",
+            "sub_accounts": amount_subaccounts,
+            "asaas_root_account_status": asaas_root_account_status,
+            "remarks": remarks
+        })
+
+        if remarks:
+            raise HTTPException(status_code=218, detail=health_status.model_dump())
+
+        return health_status
 
 
 @lru_cache

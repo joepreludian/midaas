@@ -6,6 +6,7 @@ from config import BaseConfig
 from schemas.account import AccountSchema
 from typing import Optional
 from schemas.banking import WithdrawAccount
+from config import base_config
 
 config = BaseConfig()
 
@@ -16,7 +17,7 @@ def _build_id():
 
 class BankAccount(Model):
     class Meta:
-        table_name = "accounts"
+        table_name = base_config.midaas_dynamodb_table_name
         region = config.aws_region
         host = config.aws_endpoint
         write_capacity_units = 2

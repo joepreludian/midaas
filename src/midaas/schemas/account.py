@@ -1,4 +1,6 @@
-from typing import List, Optional
+from typing import List, Optional, Literal
+
+from asaaspy.schemas.v3.my_account import MyAccountStatusViewSchema
 from pydantic import BaseModel, Field
 
 
@@ -36,3 +38,9 @@ class AccountDetailSchema(BaseModel):
         }
         return cls(**obj)
 
+
+class HealthStatusSchema(BaseModel):
+    status: Literal["healthy", "unhealthy"]
+    sub_accounts: int
+    asaas_root_account_status: Optional[MyAccountStatusViewSchema]
+    remarks: List[str]

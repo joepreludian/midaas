@@ -21,6 +21,7 @@ class BaseConfig(BaseSettings):
     midaas_jwt_secret: str = Field()
     midaas_base_url: str = Field(default="http://localhost:9999")
     midaas_user_token_time_minutes: int = Field(default=30)
+    midaas_dynamodb_table_name: str = Field(default="midaas_bank_accounts")
 
 
 base_config = BaseConfig()
