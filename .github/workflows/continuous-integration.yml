@@ -5,6 +5,7 @@ name: Continuous Integration
 
 on:
   push:
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -32,38 +33,54 @@ jobs:
       run: |
         docker compose run --rm midaas_test
 
-#  continuous_delivery:
-#    needs: [continuous_integration]
-#    runs-on: ubuntu-latest
-#    if: github.ref == 'refs/heads/main'
-#    env:
-#      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#    steps:
-#      - uses: actions/checkout@v4
-#
-#      - name: Setup PDM
-#        uses: pdm-project/setup-pdm@v4
-#
-#      - name: Get Project Version
-#        id: project_version
-#        run: |
-#          pdm show --version -q > .version
-#          echo "version=$(cat .version)" >> "$GITHUB_OUTPUT"
-#
-#      - name: Push Tag
-#        uses: laputansoft/github-tag-action@v4.6
-#        with:
-#          github_token: ${{ env.GITHUB_TOKEN }}
-#          tag: ${{ steps.project_version.outputs.version }}
-#
-#      - name: Create a Release
-#        uses: elgohr/Github-Release-Action@v5
-#        env:
-#          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          title: v${{ steps.project_version.outputs.version }}
-#          tag: v${{ steps.project_version.outputs.version }}
-#
+  continuous_delivery:
+    needs: [continuous_integration]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PDM
+        uses: pdm-project/setup-pdm@v4
+
+      - name: Get Project Version
+        id: project_version
+        run: |
+          pdm show --version -q > .version
+          echo "version=$(cat .version)" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Environment Variables
+        run: |
+          echo "${{ secrets.DOCKER_IO_PASSWORD }}" | docker login --username joepreludian --password-stdin
+          echo "${{ secrets.PROJECT_VARS_ENV_DEV }}" > .env
+
+      - name: Build PROD container
+        run: |
+          docker compose build midaas --build-arg DEV_MODE=NO
+          docker tag midaas-midaas:latest joepreludian/midaas:${{ steps.project_version.outputs.version }}
+          docker tag midaas-midaas:latest joepreludian/midaas:latest
+
+      - name: Publish Docker image
+        run: |
+          docker push joepreludian/midaas:${{ steps.project_version.outputs.version }}
+          docker push joepreludian/midaas:latest
+          
+      - name: Push Tag
+        uses: laputansoft/github-tag-action@v4.6
+        with:
+          github_token: ${{ env.GITHUB_TOKEN }}
+          tag: ${{ steps.project_version.outputs.version }}
+
+      - name: Create a Release
+        uses: elgohr/Github-Release-Action@v5
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          title: v${{ steps.project_version.outputs.version }}
+          tag: v${{ steps.project_version.outputs.version }}
+
 #      - name: Dispatch Deploy
 #        uses: peter-evans/repository-dispatch@v3
 #        with:

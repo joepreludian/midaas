@@ -1,9 +1,12 @@
 FROM python:3.13-alpine3.20 AS builder
 
+ARG DEV_MODE="YES"
+
 WORKDIR /tmp
 RUN pip install pdm
 COPY pyproject.toml pdm.lock /tmp/
-RUN pdm export -o /tmp/project_requirements.txt
+RUN if [ "${DEV_MODE}" = "YES" ] ; then pdm export --dev --output /tmp/project_requirements.txt ; fi
+RUN if [ "${DEV_MODE}" = "NO" ] ; then pdm export --prod --output /tmp/project_requirements.txt ; fi
 
 FROM python:3.13-alpine3.20
 
