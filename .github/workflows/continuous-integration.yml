@@ -22,7 +22,7 @@ jobs:
     - name: Setup Environment Variables
       run: |
         echo "${{ secrets.DOCKER_IO_PASSWORD }}" | docker login --username joepreludian --password-stdin
-        echo "${{ secrets.PROJECT_VARS_ENV_DEV }}" > .env.dev
+        echo "${{ secrets.PROJECT_VARS_ENV_DEV }}" > .env
 
     - name: Build Dev Container
       run: |
