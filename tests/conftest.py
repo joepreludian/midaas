@@ -18,6 +18,6 @@ def ensure_mocked_http_client(request):
         serializer="yaml",
         record_mode="new_episodes",
         filter_headers=["access_token"],
-        match_on=["method", "scheme", "host", "port", "path", "query", "body"]
+        match_on=["method", "scheme", "host", "port", "path", "query", "body"],
     ):
         yield
