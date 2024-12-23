@@ -27,10 +27,11 @@ jobs:
 
     - name: Build Dev Container
       run: |
-        docker compose build midaas_test
+        docker compose build midaas_test --build-arg DEV_MODE=YES
 
     - name: Run Test Suite
       run: |
+        docker compose run --rm midaas_test pip list
         docker compose run --rm midaas_test
 
   continuous_delivery:
