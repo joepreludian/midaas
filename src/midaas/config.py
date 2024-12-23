@@ -3,6 +3,9 @@ from typing import Optional
 from pydantic import Field
 
 from pydantic_settings import BaseSettings
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class BaseConfig(BaseSettings):
@@ -25,3 +28,8 @@ class BaseConfig(BaseSettings):
 
 
 base_config = BaseConfig()
+
+# Output logs for first run
+logger.info(f"Is Dev Mode: {"yes" if base_config.dev_environment else "no"}")
+logger.info(f"Midaas Dynamodb Table: {base_config.midaas_dynamodb_table_name}")
+logger.info(f"Midaas Base URL: {base_config.midaas_base_url}")

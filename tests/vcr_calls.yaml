@@ -1,0 +1,81 @@
+interactions:
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+      host:
+      - sandbox.asaas.com
+      user-agent:
+      - AsaasPy
+    method: GET
+    uri: https://sandbox.asaas.com/api/v3/myAccount/status
+  response:
+    body:
+      string: '{"id":"a4667787-4bd1-4730-9b9c-977e7a869909","commercialInfo":"APPROVED","bankAccountInfo":"APPROVED","documentation":"APPROVED","general":"APPROVED"}'
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Mon, 23 Dec 2024 01:27:46 GMT
+      Server:
+      - nginx
+      Set-Cookie:
+      - AWSALBTG=baWruBygZO1cTeB2vyk9ZCz8LYA5sgLDC1ZybfR9zNpMfKTG6LqLheFzDBF0auTgLAjx8LRt8+HI3Tg2Nh7/53sfp5kD0qB7YQqEETyacyUtBUlcWTj0NTkPRNzDQKwrsBOdDDqqbSN+byzqywkH87pWjXYydADnuS0FDRl5D1Vk;
+        Expires=Mon, 30 Dec 2024 01:27:45 GMT; Path=/
+      - AWSALBTGCORS=baWruBygZO1cTeB2vyk9ZCz8LYA5sgLDC1ZybfR9zNpMfKTG6LqLheFzDBF0auTgLAjx8LRt8+HI3Tg2Nh7/53sfp5kD0qB7YQqEETyacyUtBUlcWTj0NTkPRNzDQKwrsBOdDDqqbSN+byzqywkH87pWjXYydADnuS0FDRl5D1Vk;
+        Expires=Mon, 30 Dec 2024 01:27:45 GMT; Path=/; SameSite=None; Secure
+      - AWSALB=Fxg6DcPMLmzh4IChqnzgUmwlRPrCJvC/c4zHqwBGcz+9dpHnIVFqp7SpMViPx4UzE8QiTKiIYXeYgv8Vzl3bbg4IB6Rk460vWw/xQdElCYpZD5CRIMk8lfX8w6Qg;
+        Expires=Mon, 30 Dec 2024 01:27:45 GMT; Path=/
+      - AWSALBCORS=Fxg6DcPMLmzh4IChqnzgUmwlRPrCJvC/c4zHqwBGcz+9dpHnIVFqp7SpMViPx4UzE8QiTKiIYXeYgv8Vzl3bbg4IB6Rk460vWw/xQdElCYpZD5CRIMk8lfX8w6Qg;
+        Expires=Mon, 30 Dec 2024 01:27:45 GMT; Path=/; SameSite=None; Secure
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 2708377c97c5783333e2b58f46317aea.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - ScfMPCIrOKA8ywsndgSElNh300VsYE5jy0DWEaPOPd0j8hDKpdRK4A==
+      X-Amz-Cf-Pop:
+      - FOR50-P1
+      X-Cache:
+      - Miss from cloudfront
+    status:
+      code: 200
+      message: ''
+- request:
+    body: ''
+    headers:
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      host:
+      - testserver
+      user-agent:
+      - testclient
+    method: GET
+    uri: http://testserver/health/
+  response:
+    body:
+      string: '{"status":"healthy","sub_accounts":0,"asaas_root_account_status":{"id":"a4667787-4bd1-4730-9b9c-977e7a869909","commercialInfo":"APPROVED","bankAccountInfo":"APPROVED","documentation":"APPROVED","general":"APPROVED"},"remarks":[]}'
+    headers:
+      content-length:
+      - '229'
+      content-type:
+      - application/json
+    status:
+      code: 200
+      message: OK
+version: 1

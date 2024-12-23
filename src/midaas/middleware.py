@@ -27,4 +27,5 @@ class ErrorGuardHandlerMiddleware:
             response = JSONResponse(status_code=422, content={"error": str(e)})
 
         finally:
-            await response(scope, receive, send)
+            if response:
+                await response(scope, receive, send)
