@@ -27,7 +27,7 @@ jobs:
 
     - name: Build Dev Container
       run: |
-        docker compose build midaas_test --build-arg DEV_MODE=YES
+        docker compose build midaas_test
 
     - name: Run Test Suite
       run: |
