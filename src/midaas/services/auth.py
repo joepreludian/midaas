@@ -2,8 +2,8 @@ from datetime import datetime, timedelta, UTC
 from functools import lru_cache
 
 from jose import jwt
-from midaas.config import base_config
-from midaas.models.account import BankAccount
+from config import base_config
+from models.account import BankAccount
 from schemas.admin import TokenSchema
 
 

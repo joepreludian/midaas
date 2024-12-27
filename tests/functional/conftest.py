@@ -1,6 +1,6 @@
 import pytest
 from fastapi.testclient import TestClient
-from midaas.models.account import BankAccount
+from models.account import BankAccount
 
 
 @pytest.fixture(scope="session")

@@ -1,7 +1,7 @@
 from asaaspy.exceptions import AsaasClientError
 from starlette.responses import JSONResponse
 from starlette.types import ASGIApp, Receive, Scope, Send
-from midaas.config import base_config
+from config import base_config
 from pynamodb.exceptions import DoesNotExist
 
 

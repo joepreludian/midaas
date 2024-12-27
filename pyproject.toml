@@ -1,6 +1,6 @@
 [project]
 name = "midaas"
-version = "0.1.0"
+version = "0.1.1"
 description = "A Simple multi account manager micro-service for Asaas"
 authors = [
     {name = "Jonhnatha Trigueiro", email = "jon@preludian.com.br"},

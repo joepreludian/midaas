@@ -19,7 +19,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./src/midaas/:/app/
+      - ./:/app/
     depends_on:
       - localstack
     ports:
@@ -34,7 +34,7 @@ services:
     environment:
       - "MIDAAS_DYNAMODB_TABLE_NAME=midaas_bank_accounts__test"
     volumes:
-      - ./:/app/
+      - ./src/midaas/:/app/
     depends_on:
       - localstack
     profiles:
