@@ -34,7 +34,7 @@ services:
     environment:
       - "MIDAAS_DYNAMODB_TABLE_NAME=midaas_bank_accounts__test"
     volumes:
-      - ./src/midaas/:/app/
+      - ./:/app/
     depends_on:
       - localstack
     profiles:
